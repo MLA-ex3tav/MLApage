@@ -2,7 +2,7 @@
 # Este script inicializa git e intenta subir los archivos a tu repositorio.
 
 # Configuración del Repositorio (CAMBIAR ESTO)
-$REPO_URL = "https://github.com/MLA-ex3tav/MLAapp.git" # Tu URL de GitHub aquí
+$REPO_URL = "https://github.com/MLA-ex3tav/MLApage.git" # Tu URL de GitHub aquí
 
 # Verificar si Git está instalado
 if (!(Get-Command git -ErrorAction SilentlyContinue)) {

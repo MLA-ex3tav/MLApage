@@ -1,5 +1,5 @@
 @echo off
-set REPO_URL=https://github.com/MLA-ex3tav/MLAapp.git
+set REPO_URL=https://github.com/MLA-ex3tav/MLApage.git
 
 if not exist .git (
     echo [INFO] Inicializando repositorio git...

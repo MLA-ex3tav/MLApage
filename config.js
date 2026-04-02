@@ -9,5 +9,5 @@
 window.CONFIG = {
     SUPABASE_URL: 'https://bpgaszcnvwmxbgvnnpza.supabase.co',
     SUPABASE_KEY: 'sb_publishable_PcTUoTCQ9iqhNRtZNg6mtA_HDoFAYxI',
-    GITHUB_REPO: 'MLA-ex3tav/MLAapp'
+    GITHUB_REPO: 'MLA-ex3tav/MLApage'
 };
