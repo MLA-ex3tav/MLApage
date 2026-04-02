@@ -1,0 +1,94 @@
+body {
+    background-color: #030712;
+    color: #f9fafb;
+    -webkit-font-smoothing: antialiased;
+}
+
+.glass {
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-gradient {
+    background: radial-gradient(circle at top center, rgba(12, 148, 235, 0.15) 0%, transparent 70%);
+}
+
+.animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .5;
+    }
+}
+
+.btn-primary {
+    @apply relative overflow-hidden bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-6 rounded-2xl transition-all duration-300 transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-500/20;
+}
+
+input:focus {
+    box-shadow: 0 0 0 2px rgba(12, 148, 235, 0.2);
+}
+
+/* Bento Grid Utilities */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, minmax(200px, auto));
+    gap: 1.5rem;
+}
+
+.bento-item {
+    @apply bg-white border border-slate-100 rounded-[2.5rem] p-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:border-blue-100;
+}
+
+/* Glow Effect */
+.glow-button {
+    position: relative;
+    z-index: 1;
+}
+
+.glow-button::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+    z-index: -1;
+    border-radius: 9999px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glow-button:hover::after {
+    opacity: 1;
+}
+
+/* Card Hover Interactions */
+.card-interaction {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card-interaction:hover {
+    transform: translateY(-8px) scale(1.01);
+}
+
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+}

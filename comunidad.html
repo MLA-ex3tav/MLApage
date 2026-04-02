@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad | MLA Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        'app-green': '#22c55e',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #faf6f2;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            color: #0b0f19;
+        }
+
+        .dots-bg {
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .pill-btn {
+            border-radius: 9999px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script src="config.js"></script>
+</head>
+
+<body>
+    <div class="dots-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                MLA Software
+            </a>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Página de Comunidad</span>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="pt-40 pb-20 px-6">
+        <section id="comunidad" class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-xl">
+                    <span class="text-app-green font-bold text-sm tracking-widest uppercase mb-4 block">Comunidad</span>
+                    <h2 class="text-4xl font-extrabold text-slate-900 leading-tight">Lo que dicen otros negocios sobre <span class="text-blue-600">MLA</span></h2>
+                    <p class="text-slate-500 mt-4 leading-relaxed font-medium text-lg">Tu opinión nos ayuda a construir el mejor software para emprendedores.</p>
+                </div>
+                <button onclick="openReviewModal()"
+                    class="pill-btn bg-slate-900 text-white px-8 py-4 font-bold hover:bg-slate-800 transition-all shadow-xl flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    Escribir reseña
+                </button>
+            </div>
+
+            <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]">
+                <!-- Reviews injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t border-slate-100 bg-white">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest">
+            <span>MLA Software 2026</span>
+            <div class="flex gap-8">
+                <a href="index.html" class="hover:text-blue-600">Volver al Inicio</a>
+                <a href="#" class="hover:text-blue-600">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/40 backdrop-blur-md">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative">
+            <button onclick="closeReviewModal()" class="absolute top-8 right-8 text-slate-400 hover:text-slate-900 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-3xl font-black text-slate-900 mb-2">Tu opinión cuenta</h3>
+            <p class="text-slate-500 mb-10 font-medium">Ayúdanos a seguir mejorando para tu negocio.</p>
+            <form id="review-form" onsubmit="submitReview(event)" class="space-y-6">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2 ml-1">Tu Negocio</label>
+                    <input type="text" id="review-name" required placeholder="Ej: Café de la Esquina" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2 ml-1">Calificación</label>
+                    <div class="flex gap-2" id="star-selector"></div>
+                    <input type="hidden" id="review-stars" value="5">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1 ml-1">Comentario</label>
+                    <textarea id="review-positive" rows="3" required placeholder="¿Te gusta la aplicación?" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all resize-none"></textarea>
+                </div>
+                <button type="submit" id="submit-btn" class="w-full bg-app-green text-white font-black py-5 rounded-2xl hover:bg-green-600 transition-all shadow-xl shadow-green-500/10 active:scale-95">
+                    Publicar reseña
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Supabase Config ---
+        const sbClient = supabase.createClient(window.CONFIG.SUPABASE_URL, window.CONFIG.SUPABASE_KEY);
+
+        const modal = document.getElementById('review-modal');
+        const starSelector = document.getElementById('star-selector');
+        const starsInput = document.getElementById('review-stars');
+
+        function initStarSelector() {
+            starSelector.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('button');
+                star.type = 'button';
+                star.innerHTML = `<svg class="w-8 h-8 ${i <= starsInput.value ? 'text-yellow-400' : 'text-slate-100'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
+                star.onclick = () => { starsInput.value = i; initStarSelector(); };
+                starSelector.appendChild(star);
+            }
+        }
+
+        window.openReviewModal = () => { modal.classList.add('flex'); modal.classList.remove('hidden'); initStarSelector(); };
+        window.closeReviewModal = () => { modal.classList.add('hidden'); modal.classList.remove('flex'); };
+
+        async function fetchReviews() {
+            const grid = document.getElementById('reviews-grid');
+            try {
+                const { data, error } = await sbClient.from('comentarios').select('*').order('fecha', { ascending: false });
+                if (error) throw error;
+                if (data.length === 0) {
+                    grid.innerHTML = '<p class="text-slate-400 text-sm col-span-full text-center py-20 font-bold uppercase tracking-widest">Aún no hay reseñas.</p>';
+                } else {
+                    grid.innerHTML = data.map(review => `
+                        <div class="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm flex flex-col hover:border-app-green/30 transition-all group">
+                            <div class="flex gap-1 mb-4 text-yellow-400">
+                                ${Array(review.estrellas).fill(`<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`).join('')}
+                            </div>
+                            <p class="text-slate-900 font-bold mb-6 text-base leading-relaxed">"${review.comentario_positivo}"</p>
+                            
+                            ${review.respuesta_admin ? `
+                            <div class="mb-6 p-4 bg-slate-50 border-l-4 border-app-green rounded-xl">
+                                <span class="text-[9px] font-black text-app-green uppercase tracking-widest block mb-1">Respuesta del Desarrollador</span>
+                                <p class="text-slate-600 text-xs italic font-medium leading-relaxed">${review.respuesta_admin}</p>
+                            </div>
+                            ` : ''}
+
+                            <div class="mt-auto flex justify-between items-center border-t border-slate-50 pt-6">
+                                <div>
+                                    <span class="text-[10px] font-black text-slate-900 uppercase tracking-widest block">${review.nombre_negocio}</span>
+                                    <span class="text-[9px] text-slate-400 font-bold">${new Date(review.fecha).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        window.submitReview = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true; btn.innerHTML = 'Publicando...';
+            try {
+                const { error } = await sbClient.from('comentarios').insert([{
+                    nombre_negocio: document.getElementById('review-name').value,
+                    estrellas: parseInt(document.getElementById('review-stars').value),
+                    comentario_positivo: document.getElementById('review-positive').value,
+                    fecha: new Date().toISOString()
+                }]);
+                if (error) throw error;
+                btn.innerHTML = '¡Publicado!';
+                setTimeout(() => { closeReviewModal(); fetchReviews(); document.getElementById('review-form').reset(); btn.disabled = false; btn.innerHTML = 'Publicar reseña'; }, 1500);
+            } catch (err) {
+                console.error(err);
+                alert('Error al enviar: ' + (err.message || 'Error desconocido'));
+                btn.disabled = false; 
+                btn.innerHTML = 'Publicar reseña';
+            }
+        };
+
+        fetchReviews();
+    </script>
+</body>
+
+</html>
